@@ -1,10 +1,10 @@
-# models/train_logreg.py
+# models/train_decision_tree.py
 
 import os
 import pandas as pd
 from sklearn.model_selection import train_test_split
 from sklearn.pipeline import Pipeline
-from sklearn.linear_model import LogisticRegression
+from sklearn.tree import DecisionTreeClassifier
 from sklearn.metrics import classification_report
 from joblib import dump
 
@@ -12,7 +12,7 @@ from utils.preprocessing import build_preprocessor, TARGET_COL, NUM_COLS, CAT_CO
 
 
 DATA_PATH = os.path.join("data", "heart.csv")
-MODEL_PATH = os.path.join("models", "logreg_pipeline.pkl")
+MODEL_PATH = os.path.join("models", "decision_tree_pipeline.pkl")
 
 
 def load_data(path):
@@ -23,10 +23,9 @@ def load_data(path):
 
 
 def build_model():
-    return LogisticRegression(
-        max_iter=1000,
-        class_weight="balanced",
-        solver="lbfgs"
+    return DecisionTreeClassifier(
+        criterion="entropy",   # information gain
+        random_state=42
     )
 
 
@@ -53,11 +52,11 @@ def main():
     y_pred = pipeline.predict(X_val)
     y_proba = pipeline.predict_proba(X_val)[:, 1]
 
-    print("Logistic Regression – Validation Report")
+    print("Decision Tree – Validation Report")
     print(classification_report(y_val, y_pred, digits=4))
 
     dump(pipeline, MODEL_PATH)
-    print(f"Saved Logistic Regression pipeline to {MODEL_PATH}")
+    print(f"Saved Decision Tree pipeline to {MODEL_PATH}")
 
 
 if __name__ == "__main__":
