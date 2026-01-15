@@ -39,7 +39,6 @@ Thumbs.db
 # Model artifacts (optional)
 # Ignore saved models if any
 # ===============================
-*.pkl
 *.joblib
 
 # ===============================
