@@ -241,7 +241,7 @@ with tab3:
     st.subheader("Heart Disease Dataset Overview")
 
     st.markdown("""
-**Dataset Source:** UCI Heart Disease Dataset (via Kaggle)  
+**Dataset Source:** [Kaggle Heart Disease Dataset](https://www.kaggle.com/datasets/johnsmith88/heart-disease-dataset)
 
 **Problem Type:** Binary Classification  
 
