@@ -39,14 +39,14 @@ The goal of the assignment is to build and evaluate six different machine‑lear
 <!-- METRICS_TABLE_END -->
 
 <!-- OBS_TABLE_START -->
-| Model | Observation |
-|---|---|
-| Logistic Regression | Strong discriminative ability (high AUC). Balanced precision/recall. Strong overall F1. |
-| Decision Tree | Strong discriminative ability (high AUC). Balanced precision/recall. Strong overall F1. |
-| KNN | Strong discriminative ability (high AUC). Balanced precision/recall. Strong overall F1. |
-| Naive Bayes | Strong discriminative ability (high AUC). Balanced precision/recall. Strong overall F1. |
-| Random Forest | Strong discriminative ability (high AUC). Balanced precision/recall. Strong overall F1. |
-| XGBoost | Strong discriminative ability (high AUC). Balanced precision/recall. Strong overall F1. |
+| Model             | Observation |
+|-------------------|-------------|
+| Logistic Regression | Stable baseline model with good AUC and balanced precision/recall. Performs reliably without signs of overfitting. |
+| Decision Tree       | Strong performance with the ability to capture non-linear patterns. Slightly more risk of overfitting but still performs very well. |
+| KNN                 | Performs effectively after scaling, leveraging neighborhood similarity. Good AUC and well-balanced classification performance. |
+| Naive Bayes         | Simple probabilistic model that surprisingly performs strongly on this dataset. Good recall and strong AUC. |
+| Random Forest       | Excellent generalization and strong metrics across the board due to ensemble learning. Very reliable model. |
+| XGBoost             | Highest performing model overall with powerful gradient-boosted decision trees. Strong discriminative ability and consistent metrics. |
 <!-- OBS_TABLE_END -->
 
 
