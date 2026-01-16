@@ -65,6 +65,7 @@ MODEL_PATHS = {
     "Decision Tree": "models/decision_tree_pipeline.pkl",
     "KNN": "models/knn_pipeline.pkl",
     "Naive Bayes": "models/naive_bayes_pipeline.pkl",
+    "Random Forest": "models/random_forest_pipeline.pkl"
 }
 
 # =========================================================
