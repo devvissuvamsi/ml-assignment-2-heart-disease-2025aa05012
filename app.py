@@ -63,6 +63,7 @@ FEATURE_COLS = [
 MODEL_PATHS = {
     "Logistic Regression": "models/logreg_pipeline.pkl",
     "Decision Tree": "models/decision_tree_pipeline.pkl",
+    "KNN": "models/knn_pipeline.pkl",
 }
 
 # =========================================================
