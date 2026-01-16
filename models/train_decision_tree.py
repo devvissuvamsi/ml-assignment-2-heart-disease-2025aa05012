@@ -1,37 +1,33 @@
+
 # models/train_decision_tree.py
 
 import os
+import sys
 import pandas as pd
+from joblib import dump
+
 from sklearn.model_selection import train_test_split
 from sklearn.pipeline import Pipeline
 from sklearn.tree import DecisionTreeClassifier
-from sklearn.metrics import classification_report
-from joblib import dump
+from sklearn.metrics import classification_report, roc_auc_score
 
 from utils.preprocessing import build_preprocessor, TARGET_COL, NUM_COLS, CAT_COLS
-
+from utils.data import load_and_clean_heart_csv  # <-- centralized loader with de-dup
 
 DATA_PATH = os.path.join("data", "heart.csv")
 MODEL_PATH = os.path.join("models", "decision_tree_pipeline.pkl")
 
 
-def load_data(path):
-    df = pd.read_csv(path)
-    df = df.dropna(subset=[TARGET_COL])
-    df = df.dropna(subset=NUM_COLS + CAT_COLS)
-    return df
-
-
-def build_model():
-    return DecisionTreeClassifier(
-        criterion="entropy",   # information gain
-        random_state=42
-    )
+def build_model() -> DecisionTreeClassifier:
+    # Same as before; criterion="entropy" (information gain)
+    return DecisionTreeClassifier(criterion="entropy", random_state=42)
 
 
 def main():
-    df = load_data(DATA_PATH)
+    # 1) Load once, cleaned & deduplicated (same for all models)
+    df = load_and_clean_heart_csv(DATA_PATH, TARGET_COL, NUM_COLS, CAT_COLS)
 
+    # 2) Split features/target
     X = df[NUM_COLS + CAT_COLS]
     y = df[TARGET_COL].astype(int)
 
@@ -39,25 +35,41 @@ def main():
         X, y, test_size=0.2, random_state=42, stratify=y
     )
 
-    preprocessor = build_preprocessor()
-    model = build_model()
-
+    # 3) Build pipeline (preprocessing inside the pipeline)
     pipeline = Pipeline(steps=[
-        ("preprocessor", preprocessor),
-        ("model", model)
+        ("preprocessor", build_preprocessor()),
+        ("model", build_model())
     ])
 
+    # 4) Fit
     pipeline.fit(X_train, y_train)
 
+    # 5) Evaluate on validation
     y_pred = pipeline.predict(X_val)
-    y_proba = pipeline.predict_proba(X_val)[:, 1]
+    # AUC if predict_proba is available and both classes present
+    try:
+        if y_val.nunique() == 2 and hasattr(pipeline, "predict_proba"):
+            y_proba = pipeline.predict_proba(X_val)[:, 1]
+            auc = roc_auc_score(y_val, y_proba)
+        else:
+            auc = None
+    except Exception:
+        auc = None
 
     print("Decision Tree – Validation Report")
     print(classification_report(y_val, y_pred, digits=4))
+    if auc is not None:
+        print(f"AUC: {auc:.4f}")
 
+    # 6) Persist the pipeline
+    os.makedirs(os.path.dirname(MODEL_PATH), exist_ok=True)
     dump(pipeline, MODEL_PATH)
     print(f"Saved Decision Tree pipeline to {MODEL_PATH}")
 
 
 if __name__ == "__main__":
-    main()
+    try:
+        main()
+    except Exception as e:
+        print(f"[ERROR] {e}")
+        sys.exit(1)
