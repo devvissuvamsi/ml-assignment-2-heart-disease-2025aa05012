@@ -1,56 +1,70 @@
 
-# Heart Disease Classification
+# Heart Disease Classification — ML Assignment 2
 
-This repository contains an end‑to‑end machine learning project that trains six classification models to predict heart disease and provides a simple Streamlit application for testing and evaluation.
+This repository contains an end‑to‑end machine learning project implementing six models and a Streamlit web application for heart‑disease prediction.
 
 ## Project Links
 - GitHub Repository: https://github.com/devvissuvamsi/ml-assignment-2-heart-disease-2025aa05012
-- Streamlit App: https://ml-assignment-2-heart-disease-2025aa05012.streamlit.app/
+- Streamlit Web App: https://ml-assignment-2-heart-disease-2025aa05012.streamlit.app/
+
+---
+## a) Problem Statement
+The goal of the assignment is to build and evaluate six different machine‑learning classification models to predict the presence of heart disease. A Streamlit application is required to demonstrate predictions, visualize metrics, and allow CSV uploads.
+
+---
+## b) Dataset Description
 - Dataset Source: https://www.kaggle.com/datasets/johnsmith88/heart-disease-dataset
+- Target Variable: `target` (1 = heart disease, 0 = no heart disease)
+- Total Features: 13
+- Key Feature Types:
+  - Numerical: `age`, `trestbps`, `chol`, `thalach`, `oldpeak`
+  - Categorical: `sex`, `cp`, `fbs`, `restecg`, `exang`, `slope`, `ca`, `thal`
+- Duplicate rows were removed during preprocessing to ensure fair model evaluation.
 
-## Overview
-The goal of this project is to train multiple machine learning models on the Kaggle Heart Disease dataset and compare their performance. A Streamlit app is included to let users evaluate models on the built‑in dataset or upload their own CSV file.
-
-## Models Implemented
+---
+## c) Models & Evaluation Metrics
+Six models were trained using a shared preprocessing pipeline:
 - Logistic Regression
 - Decision Tree
 - K‑Nearest Neighbors (KNN)
-- Naive Bayes (GaussianNB)
+- Naive Bayes
 - Random Forest
 - XGBoost
 
-All models share a consistent preprocessing pipeline and use a cleaned, deduplicated version of the dataset before splitting.
+Metrics evaluated for each model:
+- Accuracy
+- AUC
+- Precision
+- Recall
+- F1 Score
+- MCC
 
-## Running This Project Locally
-Follow these steps to download and run the project on your machine:
+(Insert your final evaluation table here after running all models.)
 
-### 1. Clone the GitHub repository
+---
+## Observations (Short Notes)
+(Insert brief observations about each model's behavior here.)
+
+---
+## Running the Project Locally
+### 1. Clone the repository
 ```
 git clone https://github.com/devvissuvamsi/ml-assignment-2-heart-disease-2025aa05012.git
 cd ml-assignment-2-heart-disease-2025aa05012
 ```
-
-### 2. Create a virtual environment (optional but recommended)
+### 2. Create a virtual environment (optional)
 ```
 python -m venv venv
 ```
 Activate it:
-- Windows:
-```
-venv\Scriptsctivate
-```
-- macOS/Linux:
-```
-source venv/bin/activate
-```
+- Windows: `venv\Scripts\activate`
+- macOS/Linux: `source venv/bin/activate`
 
-### 3. Install required dependencies
+### 3. Install dependencies
 ```
 pip install -r requirements.txt
 ```
-
-### 4. Train Models (optional)
-Each model has its own training script:
+### 4. (Optional) Train all models
 ```
 python -m models.train_logreg
 python -m models.train_decision_tree
@@ -59,28 +73,21 @@ python -m models.train_naive_bayes
 python -m models.train_random_forest
 python -m models.train_xgboost
 ```
-This will generate their `.pkl` files inside the `models/` directory.
-
-### 5. Run the Streamlit Application
+### 5. Run the Streamlit app
 ```
 streamlit run app.py
 ```
-This will open the web app in your browser.
 
-## Streamlit App Features
-- Select and evaluate any of the six models
-- View key metrics and visualizations
-- Upload a custom CSV file for prediction
-- Inspect dataset overview
-
+---
 ## Folder Structure
 ```
-models/               # training scripts + saved model pipelines
-utils/                # preprocessing, data loading, metrics, plotting
-app.py                # Streamlit application
+models/               # training scripts + saved model files (*.pkl)
+utils/                # preprocessing, data loader, plotting, metrics
+app.py                # Streamlit frontend
 requirements.txt
 README.md
 ```
 
+---
 ## Summary
-This repository demonstrates a clean workflow for data preprocessing, model training, evaluation, and deployment using Streamlit.
+This project demonstrates preprocessing, model training, comparison, and deployment using Streamlit as required by Assignment 2.
