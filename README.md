@@ -22,24 +22,33 @@ The goal of the assignment is to build and evaluate six different machine‑lear
 - Duplicate rows were removed during preprocessing to ensure fair model evaluation.
 
 ---
-## c) Models & Evaluation Metrics
-Six models were trained using a shared preprocessing pipeline:
-- Logistic Regression
-- Decision Tree
-- K‑Nearest Neighbors (KNN)
-- Naive Bayes
-- Random Forest
-- XGBoost
 
-Metrics evaluated for each model:
-- Accuracy
-- AUC
-- Precision
-- Recall
-- F1 Score
-- MCC
 
-(Insert your final evaluation table here after running all models.)
+## c) Models & Evaluation
+
+
+<!-- METRICS_TABLE_START -->
+| Model | Accuracy | AUC | Precision | Recall | F1 | MCC |
+|---|---:|---:|---:|---:|---:|---:|
+| Logistic Regression | 0.8771 | 0.9401 | 0.8676 | 0.8973 | 0.8822 | 0.7542 |
+| Decision Tree | 0.9571 | 0.9570 | 0.9564 | 0.9601 | 0.9583 | 0.9141 |
+| KNN | 0.9639 | 0.9873 | 0.9639 | 0.9658 | 0.9649 | 0.9278 |
+| Naive Bayes | 0.8459 | 0.9070 | 0.8321 | 0.8764 | 0.8537 | 0.6921 |
+| Random Forest | 0.9541 | 0.9873 | 0.9510 | 0.9601 | 0.9555 | 0.9082 |
+| XGBoost | 0.9502 | 0.9784 | 0.9507 | 0.9525 | 0.9516 | 0.9004 |
+<!-- METRICS_TABLE_END -->
+
+<!-- OBS_TABLE_START -->
+| Model | Observation |
+|---|---|
+| Logistic Regression | Strong discriminative ability (high AUC). Balanced precision/recall. Strong overall F1. |
+| Decision Tree | Strong discriminative ability (high AUC). Balanced precision/recall. Strong overall F1. |
+| KNN | Strong discriminative ability (high AUC). Balanced precision/recall. Strong overall F1. |
+| Naive Bayes | Strong discriminative ability (high AUC). Balanced precision/recall. Strong overall F1. |
+| Random Forest | Strong discriminative ability (high AUC). Balanced precision/recall. Strong overall F1. |
+| XGBoost | Strong discriminative ability (high AUC). Balanced precision/recall. Strong overall F1. |
+<!-- OBS_TABLE_END -->
+
 
 ---
 ## Observations (Short Notes)
