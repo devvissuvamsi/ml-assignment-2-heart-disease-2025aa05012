@@ -185,13 +185,17 @@ with tab1:
 with tab2:
     st.subheader("Evaluate Model on Uploaded Dataset")
 
-    # 👉 Added download link for sample test.csv
-    st.markdown(
-        """
-        Chlick here to download a sample test file:  
-        [Download test.csv](https://raw.githubusercontent.com/devvissuvamsi/ml-assignment-2-heart-disease-2025aa05012/master/data/test.csv)
-        """
-    )
+    # 👉 Direct download button for sample test.csv
+    try:
+        sample_df = pd.read_csv("data/test.csv")
+        st.download_button(
+            label="⬇️ Download sample test.csv",
+            data=sample_df.to_csv(index=False),
+            file_name="test.csv",
+            mime="text/csv"
+        )
+    except FileNotFoundError:
+        st.warning("Sample test.csv not found in data/ folder. Please add it to your repo.")
 
     model_choice = st.selectbox(
         "Select Model",
