@@ -61,12 +61,12 @@ FEATURE_COLS = [
 ]
 
 MODEL_PATHS = {
-    "Logistic Regression": "models/logreg_pipeline.pkl",
-    "Decision Tree": "models/decision_tree_pipeline.pkl",
-    "KNN": "models/knn_pipeline.pkl",
-    "Naive Bayes": "models/naive_bayes_pipeline.pkl",
-    "Random Forest": "models/random_forest_pipeline.pkl",
-    "XGBoost": "models/xgboost_pipeline.pkl",
+    "Logistic Regression": "models/artifacts/logreg_pipeline.pkl",
+    "Decision Tree": "models/artifacts/decision_tree_pipeline.pkl",
+    "KNN": "models/artifacts/knn_pipeline.pkl",
+    "Naive Bayes": "models/artifacts/naive_bayes_pipeline.pkl",
+    "Random Forest": "models/artifacts/random_forest_pipeline.pkl",
+    "XGBoost": "models/artifacts/xgboost_pipeline.pkl",
 }
 
 # =========================================================
