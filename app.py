@@ -1,6 +1,6 @@
-
-import streamlit as st
+import os
 import pandas as pd
+import streamlit as st
 from joblib import load
 
 from utils.metrics import compute_metrics
@@ -80,20 +80,12 @@ def load_pipeline(path: str):
 # Helper: Metrics + visuals + summary (COMPACT)
 # =========================================================
 def render_results(model_name: str, y_true, y_pred, y_proba):
-    """
-    Renders:
-      1) Compact KPI metrics row
-      2) Compact visuals (confusion matrix + ROC) side-by-side
-      3) Full metrics table in an expander
-      4) One-line summary
-    """
     metrics = compute_metrics(y_true, y_pred, y_proba)
 
-    # ---------- Compact KPI metrics (6 tiles) ----------
+    # ---------- Compact KPI metrics ----------
     st.markdown("### 📈 Evaluation")
     kpi_cols = st.columns(6)
 
-    # Round once for display
     acc = round(metrics["accuracy"], 3)
     prec = round(metrics["precision"], 3)
     rec = round(metrics["recall"], 3)
@@ -101,7 +93,6 @@ def render_results(model_name: str, y_true, y_pred, y_proba):
     auc = round(metrics["auc"], 3)
     mcc = round(metrics["mcc"], 3)
 
-    # Show KPIs
     kpi_cols[0].metric("Accuracy", f"{acc:.3f}")
     kpi_cols[1].metric("Precision", f"{prec:.3f}")
     kpi_cols[2].metric("Recall", f"{rec:.3f}")
@@ -111,16 +102,13 @@ def render_results(model_name: str, y_true, y_pred, y_proba):
 
     # ---------- Compact visualizations ----------
     st.markdown("### 🔍 Visualizations")
-
     col1, col2 = st.columns(2)
 
     with col1:
         st.caption("Confusion Matrix")
-        # Get fig and shrink it to be compact
         fig_cm = plot_confusion_matrix(y_true, y_pred)
         try:
-            # If fig is a matplotlib Figure, we can resize
-            fig_cm.set_size_inches(3.6, 3.2)  # width, height in inches
+            fig_cm.set_size_inches(3.6, 3.2)
         except Exception:
             pass
         st.pyplot(fig_cm, use_container_width=True)
@@ -145,26 +133,17 @@ def render_results(model_name: str, y_true, y_pred, y_proba):
 
 
 def _safe_predict_proba(pipe, X):
-    """
-    Returns proba for positive class if available; otherwise tries decision_function
-    and normalizes via a sigmoid fallback.
-    """
     import numpy as np
-
     if hasattr(pipe, "predict_proba"):
         proba = pipe.predict_proba(X)
-        # handle binary shape consistently: pick positive class column if present
         if proba.ndim == 2 and proba.shape[1] >= 2:
             return proba[:, 1]
         else:
-            # if model returns single column (rare), use that
             return proba.reshape(-1)
     elif hasattr(pipe, "decision_function"):
         scores = pipe.decision_function(X)
-        # sigmoid to map to (0,1)
         return 1 / (1 + np.exp(-scores))
     else:
-        # fallback: use predictions as pseudo-proba (0/1)
         preds = pipe.predict(X)
         return preds.astype(float)
 
@@ -206,6 +185,14 @@ with tab1:
 with tab2:
     st.subheader("Evaluate Model on Uploaded Dataset")
 
+    # 👉 Added download link for sample test.csv
+    st.markdown(
+        """
+        Chlick here to download a sample test file:  
+        [Download test.csv](https://raw.githubusercontent.com/devvissuvamsi/ml-assignment-2-heart-disease-2025aa05012/master/data/test.csv)
+        """
+    )
+
     model_choice = st.selectbox(
         "Select Model",
         list(MODEL_PATHS.keys()),
@@ -219,13 +206,11 @@ with tab2:
 
     if uploaded_file:
         df = pd.read_csv(uploaded_file)
-
         missing_cols = [c for c in FEATURE_COLS + [TARGET_COL] if c not in df.columns]
         if missing_cols:
             st.error(f"Missing required columns: {missing_cols}")
         else:
             pipe = load_pipeline(MODEL_PATHS[model_choice])
-
             X = df[FEATURE_COLS]
             y = df[TARGET_COL].astype(int)
 
