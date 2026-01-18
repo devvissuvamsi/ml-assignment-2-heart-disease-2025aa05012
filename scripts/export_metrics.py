@@ -7,7 +7,7 @@ Usage:
   python scripts/export_metrics.py [--update-readme]
 
 What it does:
-  • Loads data/heart.csv and the six saved model pipelines (*.pkl)
+  • Loads data/train.csv and the six saved model pipelines (*.pkl)
   • Computes: Accuracy, AUC, Precision, Recall, F1, MCC for each model
   • Writes:
       metrics/metrics_summary.csv
@@ -44,12 +44,12 @@ except Exception as e:
 
 # Paths to the six trained pipelines
 MODELS = [
-    ("Logistic Regression", "models/logreg_pipeline.pkl"),
-    ("Decision Tree",       "models/decision_tree_pipeline.pkl"),
-    ("KNN",                 "models/knn_pipeline.pkl"),
-    ("Naive Bayes",         "models/naive_bayes_pipeline.pkl"),
-    ("Random Forest",       "models/random_forest_pipeline.pkl"),
-    ("XGBoost",             "models/xgboost_pipeline.pkl"),
+    ("Logistic Regression", "models/artifacts/logreg_pipeline.pkl"),
+    ("Decision Tree",       "models/artifacts/decision_tree_pipeline.pkl"),
+    ("KNN",                 "models/artifacts/knn_pipeline.pkl"),
+    ("Naive Bayes",         "models/artifacts/naive_bayes_pipeline.pkl"),
+    ("Random Forest",       "models/artifacts/random_forest_pipeline.pkl"),
+    ("XGBoost",             "models/artifacts/xgboost_pipeline.pkl"),
 ]
 
 OUT_DIR = "metrics"
@@ -192,7 +192,7 @@ def main():
     args = ap.parse_args()
 
     # Load data
-    df = pd.read_csv("data/heart.csv")
+    df = pd.read_csv("data/train.csv")
     X = df[NUM_COLS + CAT_COLS]
     y = df[TARGET_COL].astype(int)
 

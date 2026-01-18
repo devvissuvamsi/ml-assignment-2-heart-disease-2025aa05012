@@ -15,8 +15,8 @@ from xgboost import XGBClassifier
 from utils.preprocessing import build_preprocessor, TARGET_COL, NUM_COLS, CAT_COLS
 from utils.data import load_and_clean_heart_csv  # centralized loader with de-dup
 
-DATA_PATH = os.path.join("data", "heart.csv")
-MODEL_PATH = os.path.join("models", "xgboost_pipeline.pkl")
+DATA_PATH = os.path.join("data", "train.csv")
+MODEL_PATH = os.path.join("models", "artifacts",  "xgboost_pipeline.pkl")
 
 
 def build_model() -> XGBClassifier:

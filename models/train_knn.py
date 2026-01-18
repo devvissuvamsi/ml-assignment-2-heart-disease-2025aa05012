@@ -16,8 +16,8 @@ from utils.preprocessing import build_preprocessor, TARGET_COL, NUM_COLS, CAT_CO
 from utils.data import load_and_clean_heart_csv  # <-- use the shared loader
 
 
-DATA_PATH = os.path.join("data", "heart.csv")
-MODEL_PATH = os.path.join("models", "knn_pipeline.pkl")
+DATA_PATH = os.path.join("data", "train.csv")
+MODEL_PATH = os.path.join("models", "artifacts",  "knn_pipeline.pkl")
 
 
 # -------------------------

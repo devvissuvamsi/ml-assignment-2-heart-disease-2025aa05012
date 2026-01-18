@@ -11,7 +11,7 @@ def load_and_clean_heart_csv(
     cat_cols: List[str],
 ) -> pd.DataFrame:
     """
-    Loads heart.csv, enforces required columns, drops NA rows on target/features,
+    Loads train.csv, enforces required columns, drops NA rows on target/features,
     removes exact duplicates AND feature-only duplicates before splitting.
     Returns a clean DataFrame ready for train/val split.
     """

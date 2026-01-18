@@ -14,8 +14,8 @@ from sklearn.metrics import classification_report, roc_auc_score
 from utils.preprocessing import build_preprocessor, TARGET_COL, NUM_COLS, CAT_COLS
 from utils.data import load_and_clean_heart_csv
 
-DATA_PATH = os.path.join("data", "heart.csv")
-MODEL_PATH = os.path.join("models", "naive_bayes_pipeline.pkl")
+DATA_PATH = os.path.join("data", "train.csv")
+MODEL_PATH = os.path.join("models", "artifacts",  "naive_bayes_pipeline.pkl")
 
 def build_model() -> GaussianNB:
     return GaussianNB(var_smoothing=1e-9)

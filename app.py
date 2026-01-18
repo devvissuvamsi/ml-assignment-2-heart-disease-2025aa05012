@@ -52,7 +52,7 @@ st.caption("Machine Learning models for predicting heart disease")
 # =========================================================
 # Constants
 # =========================================================
-DATA_PATH = "data/heart.csv"
+DATA_PATH = "data/train.csv"
 TARGET_COL = "target"
 
 FEATURE_COLS = [
